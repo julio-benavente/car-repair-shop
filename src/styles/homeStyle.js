@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Hero from "../assets/images/hero-image.jpg";
 import { transparentize } from "polished";
 import breakpoint from "./breakpoints";
+import { motion } from "framer-motion";
 
 export const MainSection = styled.div`
   min-height: 100vh;
@@ -135,7 +136,7 @@ export const Logo = styled.p`
   }
 `;
 
-export const Navbar = styled.div`
+export const Navbar = styled(motion.div)`
   grid-column: 6/-1;
   display: grid;
   grid-auto-columns: auto;
@@ -143,13 +144,28 @@ export const Navbar = styled.div`
   justify-content: end;
   align-items: center;
   gap: 20px;
+  position: relative;
 
   @media only screen and ${breakpoint.device.md} {
     display: none;
+    position: absolute;
+    grid-auto-flow: row;
+    grid-auto-rows: auto;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    left: min(-32px, -7vw);
+    grid-column: 1/-1;
+    background-color: ${(props) => props.theme.color.gray800};
+    justify-content: center;
+    justify-items: center;
+    align-content: center;
+    z-index: 200;
   }
 `;
 
-export const NavLink = styled.a`
+export const NavLink = styled(motion.a)`
   color: ${(props) => props.theme.color.white};
   position: relative;
   cursor: pointer;
@@ -241,4 +257,20 @@ export const AppointmentButton = styled.button`
   }
 `;
 
-export const HamburgerMenu = styled.h2``;
+export const HamburgerMenu = styled.div`
+  position: absolute;
+  color: white;
+  right: 20px;
+  top: 10px;
+  padding: 10px;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  font-size: max(20px, 3vw);
+  cursor: pointer;
+  &:hover {
+    background-color: ${(props) =>
+      transparentize(0.5, props.theme.color.white)};
+  }
+  z-index: 300;
+`;

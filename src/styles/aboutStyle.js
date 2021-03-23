@@ -1,8 +1,9 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 import about_imt from "../assets/images/about_img.jpg";
 import breakpoint from "./breakpoints";
 
-export const MainSection = styled.div`
+export const MainSection = styled(motion.div)`
   position: relative;
   z-index: 1;
   padding-top: clamp(40px, 20vh, 200px);
@@ -10,7 +11,7 @@ export const MainSection = styled.div`
   background-color: ${(props) => props.theme.color.gray50};
 `;
 
-export const Photo = styled.div`
+export const Photo = styled(motion.div)`
   position: relative;
   grid-column: 1/7;
   grid-row: 1/3;
@@ -27,8 +28,7 @@ export const Photo = styled.div`
     z-index: 5;
   }
 
-  &::before {
-    content: "";
+  .line-1 {
     position: absolute;
     width: 70%;
     height: 70%;
@@ -40,8 +40,7 @@ export const Photo = styled.div`
     background-color: #ffffff;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 100 100'%3E%3Cg stroke='%23cfcfcf' stroke-width='0' %3E%3Crect fill='%23000000' x='-60' y='-60' width='110' height='240'/%3E%3C/g%3E%3C/svg%3E");
   }
-  &::after {
-    content: "";
+  .line-2 {
     position: absolute;
     width: 120%;
     height: 30%;
@@ -70,7 +69,7 @@ export const Photo = styled.div`
     margin-right: min(5vw, 32px);
   }
 `;
-export const Title = styled.div`
+export const Title = styled(motion.div)`
   grid-column: 7/-1;
   grid-row: 1/2;
   justify-self: end;
@@ -86,7 +85,7 @@ export const Title = styled.div`
   }
 `;
 
-export const Description = styled.div`
+export const Description = styled(motion.div)`
   grid-column: 7/-1;
   grid-row: 2/3;
   width: clamp(300px, 80%, 550px);

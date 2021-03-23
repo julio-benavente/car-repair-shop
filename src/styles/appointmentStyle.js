@@ -1,16 +1,25 @@
 import styled from "styled-components";
 import { darken } from "polished";
+import breakpoint from "./breakpoints";
 
 export const MainSection = styled.div`
-  padding-top: clamp(20px, 10vh, 50px);
-  padding-bottom: clamp(20px, 10vh, 50px);
-  min-height: calc(100vh - (clamp(20px, 10vh, 50px) * 2));
+  padding-top: clamp(40px, 7vh, 50px);
+  padding-bottom: clamp(40px, 7vh, 50px);
+  max-height: calc(100vh - (clamp(20px, 7vh, 50px) * 2));
+  min-height: calc(100vh - (clamp(20px, 7vh, 50px) * 2));
   background-color: ${(props) => props.theme.color.gray50};
   position: absolute;
   width: 100vw;
   top: ${(props) => `${props.top}px`};
   z-index: 1000;
+
+  @media only screen and ${breakpoint.device.md} {
+    padding-top: 0;
+    padding-bottom: 0;
+    max-height: calc(100vh);
+  }
 `;
+
 export const Title = styled.h2`
   margin-bottom: 20px;
 `;
@@ -19,13 +28,13 @@ export const CloseButton = styled.div`
   position: absolute;
   right: 0;
   top: 0;
+  transform: translate(50%, -50%);
   width: 45px;
   height: 45px;
   border: none;
   border-radius: 50px;
   background-color: ${(props) => props.theme.color.orange};
   color: ${(props) => props.theme.color.white};
-  transform: translate(50%, -50%);
   z-index: 100;
   display: grid;
   justify-items: center;
@@ -34,6 +43,12 @@ export const CloseButton = styled.div`
 
   &:hover {
     background-color: ${(props) => darken(0.1, props.theme.color.orange)};
+  }
+
+  @media only screen and ${breakpoint.device.md} {
+    transform: none;
+    right: 10px;
+    top: 10px;
   }
 `;
 
@@ -102,5 +117,13 @@ export const Form = styled.form`
     &:hover {
       background-color: ${(props) => darken(0.1, props.theme.color.orange)};
     }
+  }
+
+  @media only screen and ${breakpoint.device.md} {
+    width: calc(100% - 10vh);
+    min-height: 100vh;
+    padding: clamp(30px, 10vh, 60px) 5vh;
+    overflow-x: hidden;
+    align-content: start;
   }
 `;

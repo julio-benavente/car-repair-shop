@@ -1,4 +1,5 @@
-import React from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import React, { useState, useEffect } from "react";
 import { Container } from "../../styles/globalStyle";
 // Components
 
@@ -15,13 +16,68 @@ import {
   NavLink,
 } from "../../styles/homeStyle";
 
+// Variants
+const hamburgerMenuVariants = {
+  initial: { opacity: 0 },
+  animate: { opacity: 1 },
+  exit: { opacity: 0 },
+};
+
+const navbarVariants = {
+  initial: { display: "none" },
+  animate: {
+    display: "grid",
+    transition: {
+      staggerChildren: 0.05,
+    },
+  },
+  exit: { display: "none" },
+};
+
+const navLinkVariants = {
+  initial: { opacity: 0, x: -50 },
+  animate: { opacity: 1, x: 0 },
+};
+
 const HomeSection = ({
   pageYOffset,
   appointmentIsOpen,
   setAppointmentIsOpen,
 }) => {
+  const [navIsOpen, setNavIsOpen] = useState(false);
+  const handleNavbar = () => setNavIsOpen(!navIsOpen);
+  const [innerWidth, setInnerWidth] = useState(window.innerWidth);
+  const _900 = innerWidth < 901;
+
+  //Problem : This rerender the hamburgermenu everytime it scrolls
+  const size = useWindowSize();
+
+  useEffect(() => {
+    setInnerWidth(window.innerWidth);
+  }, [size]);
+
   return (
     <MainSection>
+      {_900 && (
+        <HamburgerMenu onClick={handleNavbar}>
+          {!navIsOpen && (
+            <motion.i
+              class="fas fa-grip-lines"
+              initial="initial"
+              animate="animate"
+              variants={hamburgerMenuVariants}
+            ></motion.i>
+          )}
+          {navIsOpen && (
+            <motion.i
+              class="fas fa-times"
+              initial="initial"
+              animate="animate"
+              variants={hamburgerMenuVariants}
+            ></motion.i>
+          )}
+        </HamburgerMenu>
+      )}
       <Container grid12>
         <Information>
           <p>
@@ -46,13 +102,22 @@ const HomeSection = ({
           <span>Taylor</span>
           Automotive
         </Logo>
-        <Navbar>
-          <NavLink>Home</NavLink>
-          <NavLink>About us</NavLink>
-          <NavLink>Services</NavLink>
-          <NavLink>Testimonies</NavLink>
-          <NavLink>Contact us</NavLink>
-        </Navbar>
+        <AnimatePresence>
+          {_900 && navIsOpen && (
+            <Navbar
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              variants={navbarVariants}
+            >
+              <NavLink variants={navLinkVariants}>Home</NavLink>
+              <NavLink variants={navLinkVariants}>About us</NavLink>
+              <NavLink variants={navLinkVariants}>Services</NavLink>
+              <NavLink variants={navLinkVariants}>Testimonies</NavLink>
+              <NavLink variants={navLinkVariants}>Contact us</NavLink>
+            </Navbar>
+          )}
+        </AnimatePresence>
         <Headline>
           Take it back to
           <span>its best moment</span>
@@ -71,3 +136,34 @@ const HomeSection = ({
 };
 
 export default HomeSection;
+
+function useWindowSize() {
+  // Initialize state with undefined width/height so server and client renders match
+  // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
+  const [windowSize, setWindowSize] = useState({
+    width: undefined,
+    height: undefined,
+  });
+
+  useEffect(() => {
+    // Handler to call on window resize
+    function handleResize() {
+      // Set window width/height to state
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    }
+
+    // Add event listener
+    window.addEventListener("resize", handleResize);
+
+    // Call handler right away so state gets updated with initial window size
+    handleResize();
+
+    // Remove event listener on cleanup
+    return () => window.removeEventListener("resize", handleResize);
+  }, []); // Empty array ensures that effect is only run on mount
+
+  return windowSize;
+}

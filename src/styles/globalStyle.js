@@ -20,8 +20,8 @@ export const GlobalStyle = createGlobalStyle`
     overflow-x: hidden;
     font-weight: 300;
 
-    &.fixed {
-      position: fixed;
+    &.no-scroll {
+      overflow: hidden;
     }
   }
   .app {

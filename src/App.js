@@ -16,23 +16,22 @@ const App = () => {
   const [pageYOffset, setPageYOffSet] = useState(null);
   const [emailIsOpen, setEmailIsOpen] = useState(false);
   const [appointmentIsOpen, setAppointmentIsOpen] = useState(false);
+  const body = document.querySelector("body");
   useEffect(() => {
-    window.addEventListener("scroll", (e) =>
-      setPageYOffSet(window.pageYOffset)
-    );
     setPageYOffSet(window.pageYOffset);
 
-    return window.removeEventListener("scroll", (e) =>
-      setPageYOffSet(window.pageYOffset)
-    );
-  }, []);
+    if (emailIsOpen || appointmentIsOpen) {
+      body.classList.add("no-scroll");
+    } else {
+      body.classList.remove("no-scroll");
+    }
+  }, [emailIsOpen, appointmentIsOpen]);
 
   return (
     <ThemeProvider theme={theme}>
       <div className="app">
         <GlobalStyle />
         <HomeSection
-          pageYOffset={pageYOffset}
           appointmentIsOpen={appointmentIsOpen}
           setAppointmentIsOpen={setAppointmentIsOpen}
         />
@@ -40,7 +39,6 @@ const App = () => {
         <ServiceSection />
         <TestimoniesSection />
         <ContactSection
-          pageYOffset={pageYOffset}
           emailIsOpen={emailIsOpen}
           setEmailIsOpen={setEmailIsOpen}
         />

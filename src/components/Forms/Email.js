@@ -20,7 +20,7 @@ const Email = ({ emailIsOpen, setEmailIsOpen, top }) => {
 
   return (
     <MainSection top={top}>
-      <Container align-content="center">
+      <Container align-content="center" fluid>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <CloseButton onClick={() => setEmailIsOpen(!emailIsOpen)}>
             <i className="fas fa-times"></i>

@@ -24,7 +24,7 @@ const Appointment = ({ appointmentIsOpen, setAppointmentIsOpen, top }) => {
 
   return (
     <MainSection top={top}>
-      <Container align-content="center">
+      <Container align-content="center" fluid>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <CloseButton onClick={() => setAppointmentIsOpen(!appointmentIsOpen)}>
             <i className="fas fa-times"></i>
@@ -58,7 +58,14 @@ const Appointment = ({ appointmentIsOpen, setAppointmentIsOpen, top }) => {
               })}
               className={errors.email && `error`}
             />
-            {errors.email && <span>This field is required</span>}
+            {errors.email && (
+              <span>
+                {" "}
+                {errors.email.type === "required" &&
+                  "This field is required."}{" "}
+                {errors.email.type === "pattern" && "This is not a valid email"}
+              </span>
+            )}
           </div>
           <input
             name="date"

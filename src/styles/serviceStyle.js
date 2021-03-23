@@ -1,5 +1,8 @@
 import styled from "styled-components";
 import { transparentize } from "polished";
+import { motion } from "framer-motion";
+
+//Styles
 import breakpoint from "./breakpoints";
 
 export const MainSection = styled.div`
@@ -20,27 +23,26 @@ export const Title = styled.div`
   margin-bottom: clamp(40px, 7vh, 100px);
 `;
 
-export const ServiceCards = styled.div`
+export const ServiceCards = styled(motion.div)`
   grid-column: 1/-1;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(4, calc((100% / 4) - 10px));
+  justify-content: space-between;
 
   @media only screen and ${breakpoint.device.lg} {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, calc(100% / 2));
   }
 
   @media only screen and ${breakpoint.device.sm} {
-    grid-template-columns: 1fr;
+    grid-template-columns: 100%;
   }
 `;
-export const Card = styled.div`
+export const Card = styled(motion.div)`
   display: grid;
   position: relative;
   grid-template-columns: 1fr;
   grid-auto-rows: auto;
   z-index: 1;
-
   & > * {
     position: relative;
     z-index: 5;
@@ -59,6 +61,9 @@ export const Card = styled.div`
     height: 100%;
     background-color: ${transparentize(0.2, "black")};
     position: relative;
+    padding: 15px 25px;
+    width: calc(100% - 50px);
+    height: calc(100% - 30px);
     i {
       color: white;
       position: absolute;
@@ -67,7 +72,21 @@ export const Card = styled.div`
       transform: translateX(-50%);
     }
     li {
-      display: none;
+      display: block;
+      position: absolute;
+      color: white;
+      margin-bottom: 10px;
+      position: relative;
+      &::before {
+        content: "";
+        width: 5px;
+        height: 5px;
+        background-color: #fff;
+        position: absolute;
+        top: 10px;
+        left: -10px;
+        transform: translate(-50%, -50%);
+      }
     }
   }
 
@@ -82,6 +101,7 @@ export const Card = styled.div`
       }
       li {
         display: block;
+        position: absolute;
         color: white;
         margin-bottom: 10px;
         position: relative;
