@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.js": "/car-repair-shop/static/js/main.9509360b.chunk.js",
+    "main.js.map": "/car-repair-shop/static/js/main.9509360b.chunk.js.map",
+    "runtime-main.js": "/car-repair-shop/static/js/runtime-main.2f449011.js",
+    "runtime-main.js.map": "/car-repair-shop/static/js/runtime-main.2f449011.js.map",
+    "static/css/2.0cfad52a.chunk.css": "/car-repair-shop/static/css/2.0cfad52a.chunk.css",
+    "static/js/2.57e9e157.chunk.js": "/car-repair-shop/static/js/2.57e9e157.chunk.js",
+    "static/js/2.57e9e157.chunk.js.map": "/car-repair-shop/static/js/2.57e9e157.chunk.js.map",
+    "static/js/3.b5205aa7.chunk.js": "/car-repair-shop/static/js/3.b5205aa7.chunk.js",
+    "static/js/3.b5205aa7.chunk.js.map": "/car-repair-shop/static/js/3.b5205aa7.chunk.js.map",
+    "index.html": "/car-repair-shop/index.html",
+    "static/css/2.0cfad52a.chunk.css.map": "/car-repair-shop/static/css/2.0cfad52a.chunk.css.map",
+    "static/js/2.57e9e157.chunk.js.LICENSE.txt": "/car-repair-shop/static/js/2.57e9e157.chunk.js.LICENSE.txt",
+    "static/media/about_img.117ba927.jpg": "/car-repair-shop/static/media/about_img.117ba927.jpg",
+    "static/media/hero-image.6a7c0930.jpg": "/car-repair-shop/static/media/hero-image.6a7c0930.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.2f449011.js",
+    "static/css/2.0cfad52a.chunk.css",
+    "static/js/2.57e9e157.chunk.js",
+    "static/js/main.9509360b.chunk.js"
+  ]
+}
