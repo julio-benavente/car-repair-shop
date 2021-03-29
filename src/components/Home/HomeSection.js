@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import React, { useState, useEffect } from "react";
 import { Container } from "../../styles/globalStyle";
-// Components
+import { scroller } from "react-scroll";
 
 // Styles
 import {
@@ -103,18 +103,70 @@ const HomeSection = ({
           Automotive
         </Logo>
         <AnimatePresence>
-          {_900 && navIsOpen && (
+          {(!_900 || navIsOpen) && (
             <Navbar
               initial="initial"
               animate="animate"
               exit="exit"
               variants={navbarVariants}
             >
-              <NavLink variants={navLinkVariants}>Home</NavLink>
-              <NavLink variants={navLinkVariants}>About us</NavLink>
-              <NavLink variants={navLinkVariants}>Services</NavLink>
-              <NavLink variants={navLinkVariants}>Testimonies</NavLink>
-              <NavLink variants={navLinkVariants}>Contact us</NavLink>
+              <NavLink
+                variants={navLinkVariants}
+                onClick={() => {
+                  setNavIsOpen(false);
+                  scroller.scrollTo("home", { smooth: true, offset: -100 });
+                }}
+              >
+                Home
+              </NavLink>
+              <NavLink
+                variants={navLinkVariants}
+                onClick={() => {
+                  setNavIsOpen(false);
+                  scroller.scrollTo("aboutSection", {
+                    smooth: true,
+                    offset: -100,
+                  });
+                }}
+              >
+                About us
+              </NavLink>
+              <NavLink
+                variants={navLinkVariants}
+                onClick={() => {
+                  setNavIsOpen(false);
+                  scroller.scrollTo("serviceSection", {
+                    smooth: true,
+                    offset: -100,
+                  });
+                }}
+              >
+                Services
+              </NavLink>
+              <NavLink
+                variants={navLinkVariants}
+                onClick={() => {
+                  setNavIsOpen(false);
+                  scroller.scrollTo("testimoniesSection", {
+                    smooth: true,
+                    offset: -100,
+                  });
+                }}
+              >
+                Testimonies
+              </NavLink>
+              <NavLink
+                variants={navLinkVariants}
+                onClick={() => {
+                  setNavIsOpen(false);
+                  scroller.scrollTo("contactSection", {
+                    smooth: true,
+                    offset: -100,
+                  });
+                }}
+              >
+                Contact us
+              </NavLink>
             </Navbar>
           )}
         </AnimatePresence>

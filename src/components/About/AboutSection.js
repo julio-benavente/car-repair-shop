@@ -96,7 +96,7 @@ const AboutSection = () => {
   }, [animation, descriptionInView]);
 
   return (
-    <MainSection ref={photoRef}>
+    <MainSection ref={photoRef} id="aboutSection">
       <Container grid12 rows="50px auto">
         <Photo initial="initial" animate={animation} variants={photoVariants}>
           <motion.div

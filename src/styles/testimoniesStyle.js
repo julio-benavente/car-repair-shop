@@ -38,6 +38,7 @@ export const PreviousButton = styled.div`
   display: grid;
   justify-items: center;
   align-items: center;
+  cursor: pointer;
   @media only screen and ${breakpoint.device.sm} {
     grid-column: 1/2;
     grid-row: 2/3;

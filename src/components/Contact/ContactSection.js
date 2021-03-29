@@ -30,7 +30,7 @@ const contactInformation = [
 
 const ContactSection = ({ pageYOffset, emailIsOpen, setEmailIsOpen }) => {
   return (
-    <MainSection>
+    <MainSection id="contactSection">
       <Container grid12>
         <Title>Contact us</Title>
         <InfoCard>

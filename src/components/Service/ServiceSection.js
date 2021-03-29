@@ -15,11 +15,7 @@ const services = [
   {
     name: "Service 1",
     img: "",
-    list: [
-      "Description Description  Description 1",
-      "Description 2",
-      "Description 3",
-    ],
+    list: ["Description 1", "Description 2", "Description 3"],
   },
   {
     name: "Service 2",
@@ -69,7 +65,6 @@ const cardVariants = {
 };
 
 const ServiceSection = () => {
-  const body = document.querySelector("body");
   const [serviceCardsRef, serviceCardsInView] = useInView({
     threshold: 0.3,
   });
@@ -80,10 +75,10 @@ const ServiceSection = () => {
     if (serviceCardsInView) animation.start("animate");
   }, [animation, serviceCardsInView]);
 
-  console.log(serviceCardsInView);
   const [sectionRef, sectionInView] = useInView();
+
   return (
-    <MainSection ref={sectionRef}>
+    <MainSection ref={sectionRef} id="serviceSection">
       <Container>
         <Title>Services</Title>
         <ServiceCards
@@ -105,46 +100,95 @@ export default ServiceSection;
 
 const CardItem = ({ service: { name, list } }) => {
   const card = useRef();
+  const { width } = useWindowSize();
   const [cardWidth, setCardWidth] = useState("100%");
+  const [current, cycle] = useCycle("out", "in");
+
   useEffect(() => {
     if (card.current) setCardWidth(`${card.current.offsetWidth - 50}px`);
-  }, [card]);
+  }, [width, card, current]);
 
+  const animation = useAnimation();
+  animation.start("in");
   const ulVariants = {
     out: {
       width: "50px",
       transition: {
         ease: "easeInOut",
+        when: "afterChildren",
       },
     },
     in: {
       width: cardWidth,
       transition: {
         ease: "easeInOut",
+        when: "beforeChildren",
+        staggerChildren: 0.1,
       },
     },
   };
 
   const liVariants = {
-    out: {},
+    out: {
+      x: -10,
+      opacity: 0,
+    },
+    in: {
+      x: 1,
+      opacity: 1,
+    },
   };
-
-  const [current, cycle] = useCycle("out", "in");
   return (
     <Card
       variants={cardVariants}
       onHoverStart={() => cycle(1)}
-      onHoverEnd={() => cycle(0)}
+      onHoverEnd={() => {
+        animation.stop();
+        cycle(0);
+      }}
       onClick={() => cycle(current ? "in" : "out")}
     >
       <h2>{name}</h2>
-      <div className="serviceImage" ref={card}></div>
-      <motion.ul animate={current} variants={ulVariants}>
-        <i class="fas fa-chevron-right"></i>
-        {list.map((item) => (
-          <motion.li>{item}</motion.li>
-        ))}
-      </motion.ul>
+      <div className="serviceImage" ref={card}>
+        <motion.ul animate={current} variants={ulVariants}>
+          <i class="fas fa-chevron-right"></i>
+          {list.map((item) => (
+            <motion.li variants={liVariants}>{item}</motion.li>
+          ))}
+        </motion.ul>
+      </div>
     </Card>
   );
 };
+
+// Hook
+function useWindowSize() {
+  // Initialize state with undefined width/height so server and client renders match
+  // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
+  const [windowSize, setWindowSize] = useState({
+    width: undefined,
+    height: undefined,
+  });
+
+  useEffect(() => {
+    // Handler to call on window resize
+    function handleResize() {
+      // Set window width/height to state
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    }
+
+    // Add event listener
+    window.addEventListener("resize", handleResize);
+
+    // Call handler right away so state gets updated with initial window size
+    handleResize();
+
+    // Remove event listener on cleanup
+    return () => window.removeEventListener("resize", handleResize);
+  }, []); // Empty array ensures that effect is only run on mount
+
+  return windowSize;
+}

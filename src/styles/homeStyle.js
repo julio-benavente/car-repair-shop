@@ -147,7 +147,7 @@ export const Navbar = styled(motion.div)`
   position: relative;
 
   @media only screen and ${breakpoint.device.md} {
-    display: none;
+    /* display: none; */
     position: absolute;
     grid-auto-flow: row;
     grid-auto-rows: auto;
@@ -268,9 +268,5 @@ export const HamburgerMenu = styled.div`
   align-items: center;
   font-size: max(20px, 3vw);
   cursor: pointer;
-  &:hover {
-    background-color: ${(props) =>
-      transparentize(0.5, props.theme.color.white)};
-  }
   z-index: 300;
 `;

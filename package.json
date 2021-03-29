@@ -15,6 +15,7 @@
     "react-hook-form": "^6.15.4",
     "react-intersection-observer": "^8.31.0",
     "react-scripts": "4.0.3",
+    "react-scroll": "^1.8.2",
     "styled-components": "^5.2.1",
     "styled-normalize": "^8.0.7",
     "web-vitals": "^1.1.0"
@@ -23,8 +24,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
+  "homepage": "https://julio-benavente.github.io/car-repair-shop",
   "eslintConfig": {
     "extends": [
       "react-app",
